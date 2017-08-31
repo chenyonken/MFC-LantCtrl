@@ -1,0 +1,22 @@
+# Microsoft Developer Studio Generated Dependency File, included by LantCtrl.mak
+
+.\LantCtrl.cpp : \
+	".\LantCtrl.h"\
+	".\LantCtrlDlg.h"\
+	".\StdAfx.h"\
+	
+
+.\LantCtrl.rc : \
+	".\res\LantCtrl.ico"\
+	".\res\LantCtrl.rc2"\
+	
+
+.\LantCtrlDlg.cpp : \
+	".\LantCtrl.h"\
+	".\LantCtrlDlg.h"\
+	".\StdAfx.h"\
+	
+
+.\StdAfx.cpp : \
+	".\StdAfx.h"\
+	
