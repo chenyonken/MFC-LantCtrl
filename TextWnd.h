@@ -29,6 +29,14 @@ public:
 	CRect m_rcWnd;				//窗口变成圆角矩形前的矩形
 	static const COLORREF m_clBack;	//窗口背景颜色
 public:
+	BOOL InsertItem(int nItem,LPCTSTR szItem);
+	BOOL DeleteItem(int nItem);
+	BOOL DeleteAllItem();
+	void SetItemText(int nItem,LPCTSTR szText);
+	CString GetItemText(int nItem);
+	int GetItemCount()const;
+	int GetTextWidth(CString szText);
+public:
 	CTextWnd();
 
 // Attributes
@@ -50,7 +58,11 @@ public:
 	// Generated message map functions
 protected:
 	//{{AFX_MSG(CTextWnd)
-		// NOTE - the ClassWizard will add and remove member functions here.
+	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
+	afx_msg void OnShowAdd();
+	afx_msg void OnPaint();
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnTimer(UINT nIDEvent);
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

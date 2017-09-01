@@ -16,6 +16,9 @@ class CBackWnd : public CWnd
 public:
 	enum{IDC_TEXTWND=2000};
 	CTextWnd m_TextWnd;
+	CArray<LPTSTR,LPTSTR> m_arr;
+public:
+	BOOL InsertItem(int nItem, LPCTSTR szItem);
 public:
 	CBackWnd();
 
@@ -33,12 +36,18 @@ public:
 
 // Implementation
 public:
+	int GetItemCount();
+	BOOL DeleteAllItem();
 	virtual ~CBackWnd();
 
 	// Generated message map functions
 protected:
 	//{{AFX_MSG(CBackWnd)
 	afx_msg void OnPaint();
+	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
+	afx_msg void OnShowAdd();
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnTimer(UINT nIDEvent);
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

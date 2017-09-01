@@ -81,6 +81,18 @@ FONT 9, "宋体"
 BEGIN
 END
 
+IDD_INFODLG DIALOG DISCARDABLE  0, 0, 187, 96
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,39,75,50,14
+    PUSHBUTTON      "取消",IDCANCEL,107,75,50,14
+    LTEXT           "请在这里输入要显示的文字，以;分隔多项",IDC_STATIC,7,11,
+                    173,8
+    EDITTEXT        IDC_EDIT,11,21,169,51,ES_MULTILINE | ES_AUTOHSCROLL
+END
+
 
 #ifndef _MAC
 /////////////////////////////////////////////////////////////////////////////
@@ -140,6 +152,14 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 193
     END
+
+    IDD_INFODLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 180
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 89
+    END
 END
 #endif    // APSTUDIO_INVOKED
 
@@ -150,6 +170,22 @@ END
 //
 
 IDB_BACK                BITMAP  DISCARDABLE     "res\\Back.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU1 MENU DISCARDABLE 
+BEGIN
+    POPUP "显示设置"
+    BEGIN
+        MENUITEM "修改",                        ID_SHOW_MOD
+        MENUITEM "删除",                        ID_SHOW_DEL
+        MENUITEM "添加",                        ID_SHOW_ADD
+    END
+END
+
 #endif    // Chinese (P.R.C.) resources
 /////////////////////////////////////////////////////////////////////////////
 
