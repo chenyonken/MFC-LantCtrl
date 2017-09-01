@@ -31,13 +31,15 @@ CTextWnd::CTextWnd()
 
 CTextWnd::~CTextWnd()
 {
+	if(m_font.GetSafeHandle())
+		m_font.DeleteObject();
+
 }
 
 
 BEGIN_MESSAGE_MAP(CTextWnd, CWnd)
 	//{{AFX_MSG_MAP(CTextWnd)
 	ON_WM_RBUTTONUP()
-	ON_COMMAND(ID_SHOW_ADD, OnShowAdd)
 	ON_WM_PAINT()
 	ON_WM_LBUTTONDOWN()
 	ON_WM_TIMER()
@@ -74,10 +76,16 @@ BOOL CTextWnd::CreateEx(DWORD dwExStyle,DWORD dwStyle,const RECT& rect,CWnd* pPa
 		Register();
 	}
 
-	//创建文字窗口
+
 	if(CWnd::CreateEx(dwExStyle,TEXTWND,NULL,dwStyle,rect,pParentWnd,nID))
 	{
 		
+		//设置窗口我圆角矩形
+		CRect rc;
+		GetWindowRect(rc);
+		ScreenToClient(rc);
+		m_rgnWnd.CreateRoundRectRgn(rc.left,rc.top,rc.right,rc.bottom,20,20);
+		SetWindowRgn((HRGN)m_rgnWnd,TRUE);
 		//保存窗口矩形
 		GetClientRect(m_rcWnd);
 
@@ -103,6 +111,9 @@ BOOL CTextWnd::CreateEx(DWORD dwExStyle,DWORD dwStyle,const RECT& rect,CWnd* pPa
 
 
 
+/*********************************************************************
+*以下是操作类内成员变量的函数
+********************************************************************/
 int CTextWnd::GetTextWidth(CString szText)
 {
 	CClientDC dc(this);
@@ -151,6 +162,15 @@ BOOL CTextWnd::DeleteAllItem()
 		m_arr.RemoveAll();
 	return TRUE;
 }
+
+
+/*****************************End***************************************/
+
+
+
+/********************************************************************
+*以下是消息响应函数
+*********************************************************************/
 
 void CTextWnd::OnLButtonDown(UINT nFlags, CPoint point) 
 {
@@ -233,9 +253,6 @@ void CTextWnd::OnTimer(UINT nIDEvent)
 }
 
 
-
-
-
 void CTextWnd::OnRButtonUp(UINT nFlags, CPoint point) 
 {
 	// TODO: Add your message handler code here and/or call default
@@ -248,8 +265,39 @@ void CTextWnd::OnRButtonUp(UINT nFlags, CPoint point)
 
 }
 
-void CTextWnd::OnShowAdd() 
+
+/*************************************End*******************************************/
+
+
+
+
+/*************************************************************************
+*以下函数是获取私有成员和设置私有成员的函数，同时是与背景窗口交换数据的函数
+*********************************************************************/
+void CTextWnd::GetTextPos(int *startPos, int *endPos)
 {
-	// TODO: Add your command handler code here
-	
+	*startPos=m_startPos;
+	*endPos=m_endPos;
 }
+
+void CTextWnd::GetTextStartPos(int *startPos)
+{
+	*startPos=m_startPos;
+}
+
+void CTextWnd::GetTextEndPos(int *endPos)
+{
+	*endPos=m_endPos;
+}
+
+void CTextWnd::GetWndRect(CRect *rect)
+{
+	*rect=m_rcWnd;
+}
+
+void CTextWnd::SetTextStartPos(int startPos)
+{
+	m_startPos=startPos;
+}
+
+/***************************End*********************************************/

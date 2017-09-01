@@ -36,6 +36,13 @@ public:
 
 // Implementation
 public:
+	void SetTextStartPos(int startPos);
+	void GetWndRect(CRect* rect);
+	void GetTextEndPos(int* endPos);
+	void GetTextStartPos(int* startPos);
+	void GetTextPos(int *startPos,int* endPos);
+
+	CString GetItemText(int nItem);
 	int GetItemCount();
 	BOOL DeleteAllItem();
 	virtual ~CBackWnd();
@@ -48,6 +55,8 @@ protected:
 	afx_msg void OnShowAdd();
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnTimer(UINT nIDEvent);
+	afx_msg void OnShowDel();
+	afx_msg void OnShowMod();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

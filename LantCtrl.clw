@@ -25,7 +25,9 @@ Type=0
 BaseClass=CWnd
 HeaderFile=BackWnd.h
 ImplementationFile=BackWnd.cpp
-LastObject=CBackWnd
+LastObject=ID_SHOW_MOD
+Filter=W
+VirtualFilter=WC
 
 [CLS:CInfoDlg]
 Type=0

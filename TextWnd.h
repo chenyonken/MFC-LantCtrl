@@ -53,13 +53,17 @@ public:
 
 // Implementation
 public:
+	void SetTextStartPos(int startPos);
+	void GetWndRect(CRect* rect);
+	void GetTextEndPos(int* endPos);
+	void GetTextStartPos(int* startPos);
+	void GetTextPos(int *startPos,int* endPos);
 	virtual ~CTextWnd();
 
 	// Generated message map functions
 protected:
 	//{{AFX_MSG(CTextWnd)
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
-	afx_msg void OnShowAdd();
 	afx_msg void OnPaint();
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnTimer(UINT nIDEvent);
