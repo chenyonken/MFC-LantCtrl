@@ -16,8 +16,8 @@ Class4=CLantCtrlDlg
 Class5=CTextWnd
 
 ResourceCount=3
-Resource1=IDD_LANTCTRL_DIALOG
-Resource2=IDD_INFODLG
+Resource1=IDD_INFODLG
+Resource2=IDD_LANTCTRL_DIALOG
 Resource3=IDR_MENU1
 
 [CLS:CBackWnd]

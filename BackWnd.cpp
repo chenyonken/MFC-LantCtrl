@@ -105,9 +105,16 @@ void CBackWnd::OnPaint()
 	bmp.GetBitmap(&LOGBMP);
 	int cx=LOGBMP.bmWidth;
 	int cy=LOGBMP.bmHeight;
-	mdc.SelectObject(&bmp);
+	CBitmap* pOldBmp=(CBitmap*)mdc.SelectObject(&bmp);
 	GetClientRect(&rect);
 	dc.BitBlt(0,0,rect.Width(),rect.Height(),&mdc,0,0,SRCCOPY);	
+
+
+	mdc.SelectObject(pOldBmp);
+	bmp.DeleteObject();
+	mdc.DeleteDC();
+
+	
 }
 
 

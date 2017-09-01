@@ -33,7 +33,6 @@ CTextWnd::~CTextWnd()
 {
 	if(m_font.GetSafeHandle())
 		m_font.DeleteObject();
-
 }
 
 
@@ -130,8 +129,10 @@ BOOL CTextWnd::CreateEx(DWORD dwExStyle,DWORD dwStyle,const RECT& rect,CWnd* pPa
 int CTextWnd::GetTextWidth(CString szText)
 {
 	CClientDC dc(this);
-	dc.SelectObject(&m_font);
+	CFont* pFont=(CFont*)dc.SelectObject(&m_font);
 	CSize size=dc.GetTextExtent(szText);
+	dc.SelectObject(pFont);
+//	m_font.DeleteObject();
 	return size.cx;
 }
 
@@ -222,12 +223,12 @@ void CTextWnd::OnPaint()
 	mdc.CreateCompatibleDC(&dc);
 	CBitmap bmp;
 	bmp.CreateCompatibleBitmap(&dc,m_rcWnd.Width(),m_rcWnd.Height());
-	mdc.SelectObject(&bmp);
+	CBitmap* pOldBmp=(CBitmap*)mdc.SelectObject(&bmp);
 	mdc.FillSolidRect(m_rcWnd,m_clBack);
 
-	mdc.SelectObject(m_font);
+	CFont* pOldFont=(CFont*)mdc.SelectObject(m_font);
 	mdc.SetBkMode(TRANSPARENT);
-	mdc.SelectObject(m_pen);
+	CPen* pOldPen=(CPen*)mdc.SelectObject(m_pen);
 	mdc.SetTextColor(m_clszText);
 
 	CString szText;
@@ -248,6 +249,12 @@ void CTextWnd::OnPaint()
 	}
 	m_endPos=rect.right;
 	dc.BitBlt(rc.left,rc.top,rc.Width(),rc.Height(),&mdc,0,0,SRCCOPY);	
+
+	mdc.SelectObject(pOldBmp);
+//	mdc.SelectObject(pOldPen);
+//	mdc.SelectObject(pOldFont);//有这两句，程序会当掉
+	bmp.DeleteObject();
+	mdc.DeleteDC();
 
 }
 
