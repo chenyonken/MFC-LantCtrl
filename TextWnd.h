@@ -67,6 +67,9 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnTimer(UINT nIDEvent);
+	afx_msg void OnShowAdd();
+	afx_msg void OnShowDel();
+	afx_msg void OnShowMod();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

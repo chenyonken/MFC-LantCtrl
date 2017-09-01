@@ -43,6 +43,9 @@ BEGIN_MESSAGE_MAP(CTextWnd, CWnd)
 	ON_WM_PAINT()
 	ON_WM_LBUTTONDOWN()
 	ON_WM_TIMER()
+	ON_COMMAND(ID_SHOW_ADD, OnShowAdd)
+	ON_COMMAND(ID_SHOW_DEL, OnShowDel)
+	ON_COMMAND(ID_SHOW_MOD, OnShowMod)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -50,6 +53,10 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CTextWnd message handlers
 
+/**********************************************
+* void CTextWnd::Register()
+* 功能：注册文字窗口
+**********************************************/
 void CTextWnd::Register()
 {
 	WNDCLASS wc={0};
@@ -67,6 +74,12 @@ void CTextWnd::Register()
 }
 
 
+
+/**********************************************
+* BOOL CTextWnd::CreateEx(DWORD dwExStyle,DWORD dwStyle,const RECT& rect,CWnd* pParentWnd,UINT nID)
+* 功能：创建文字窗口
+* 参数：请参阅MSDN
+**********************************************/
 BOOL CTextWnd::CreateEx(DWORD dwExStyle,DWORD dwStyle,const RECT& rect,CWnd* pParentWnd,UINT nID)
 {
 	static BOOL b=TRUE;
@@ -76,18 +89,16 @@ BOOL CTextWnd::CreateEx(DWORD dwExStyle,DWORD dwStyle,const RECT& rect,CWnd* pPa
 		Register();
 	}
 
-
 	if(CWnd::CreateEx(dwExStyle,TEXTWND,NULL,dwStyle,rect,pParentWnd,nID))
 	{
 		
-		//设置窗口我圆角矩形
-		CRect rc;
-		GetWindowRect(rc);
-		ScreenToClient(rc);
-		m_rgnWnd.CreateRoundRectRgn(rc.left,rc.top,rc.right,rc.bottom,20,20);
-		SetWindowRgn((HRGN)m_rgnWnd,TRUE);
 		//保存窗口矩形
 		GetClientRect(m_rcWnd);
+
+		//设置窗口我圆角矩形
+		m_rgnWnd.CreateRoundRectRgn(m_rcWnd.left,m_rcWnd.top,m_rcWnd.right,
+			m_rcWnd.bottom,ROUNDRECTDEGREE,ROUNDRECTDEGREE);
+		SetWindowRgn((HRGN)m_rgnWnd.GetSafeHandle(),TRUE);
 
 		//设置窗口字体
 		CFont* pFont=pParentWnd->GetFont();
@@ -112,7 +123,9 @@ BOOL CTextWnd::CreateEx(DWORD dwExStyle,DWORD dwStyle,const RECT& rect,CWnd* pPa
 
 
 /*********************************************************************
-*以下是操作类内成员变量的函数
+* int CTextWnd::GetTextWidth(CString szText)
+* 功能：获取字符串的宽度
+* 参数：szText,需要获取宽度的字符串
 ********************************************************************/
 int CTextWnd::GetTextWidth(CString szText)
 {
@@ -122,6 +135,11 @@ int CTextWnd::GetTextWidth(CString szText)
 	return size.cx;
 }
 
+/*********************************************************************
+* int CTextWnd::GetItemCount() const
+* 功能：获取当前显示文字中的字符串的个数
+* 返回值：字符串的个数
+********************************************************************/
 int CTextWnd::GetItemCount() const
 {
 	return m_arr.GetSize();
@@ -164,14 +182,13 @@ BOOL CTextWnd::DeleteAllItem()
 }
 
 
-/*****************************End***************************************/
-
 
 
 /********************************************************************
-*以下是消息响应函数
+* void CTextWnd::OnLButtonDown(UINT nFlags, CPoint point) 
+* 功能：控制文字的暂停与启动
+* 参数：请参阅MSDN
 *********************************************************************/
-
 void CTextWnd::OnLButtonDown(UINT nFlags, CPoint point) 
 {
 	// TODO: Add your message handler code here and/or call default
@@ -192,6 +209,10 @@ void CTextWnd::OnLButtonDown(UINT nFlags, CPoint point)
 
 
 
+/**************************************************
+* void CTextWnd::OnPaint() 
+* 功能：在文字窗口上移动绘制文字
+*************************************************/
 void CTextWnd::OnPaint() 
 {
 	CPaintDC dc(this); // device context for painting
@@ -240,22 +261,23 @@ void CTextWnd::OnTimer(UINT nIDEvent)
 	dc.GetTextMetrics(&tm);	
 	int movedis=tm.tmAveCharWidth;
 	if(m_endPos>=m_rcWnd.left)
-	{
 		m_startPos-=movedis;
-	}
 	else
-	{
 		m_startPos=m_rcWnd.right;
-	}
 	Invalidate(FALSE);
 	CWnd::OnTimer(nIDEvent);		
 
 }
 
 
+/************************************************************
+* void CTextWnd::OnRButtonUp(UINT nFlags, CPoint point) 
+* 功能：右键弹出菜单
+*************************************************************/
 void CTextWnd::OnRButtonUp(UINT nFlags, CPoint point) 
 {
 	// TODO: Add your message handler code here and/or call default
+	KillTimer(1);
 	CMenu menu;
 	menu.LoadMenu(IDR_MENU1);
 	CMenu* pPopup=menu.GetSubMenu(0);
@@ -265,8 +287,6 @@ void CTextWnd::OnRButtonUp(UINT nFlags, CPoint point)
 
 }
 
-
-/*************************************End*******************************************/
 
 
 
@@ -301,3 +321,36 @@ void CTextWnd::SetTextStartPos(int startPos)
 }
 
 /***************************End*********************************************/
+
+
+
+
+/***********************************************************************
+*以下是菜单的响应函数
+***********************************************************************/
+void CTextWnd::OnShowAdd() 
+{
+	// TODO: Add your command handler code here
+	CInfoDlg dlg;
+	
+	//获取已存在字符传输到弹出对话框的编辑框里
+	int nCount=GetItemCount();
+	CString str;
+	for(int i=0;i<nCount;i++)
+	{
+		str=GetItemText(i)+_T(";");
+	}
+	dlg.m_szText=str;
+	dlg.DoModal();
+	
+}
+
+void CTextWnd::OnShowDel() 
+{
+	OnShowAdd(); 	
+}
+
+void CTextWnd::OnShowMod() 
+{
+	OnShowAdd(); 
+}

@@ -6,7 +6,13 @@
 --------------------Configuration: LantCtrl - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\Users\cyk\AppData\Local\Temp\RSPDFA8.tmp" with contents
+Creating temporary file "C:\Users\cyk\AppData\Local\Temp\RSP53CE.tmp" with contents
+[
+/nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /FR"Debug/" /Fp"Debug/LantCtrl.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"F:\visual c++就业培训宝典视频\自写代码\第11章练习题\LantCtrl - 副本\LantCtrlDlg.cpp"
+]
+Creating command line "cl.exe @C:\Users\cyk\AppData\Local\Temp\RSP53CE.tmp" 
+Creating temporary file "C:\Users\cyk\AppData\Local\Temp\RSP53DE.tmp" with contents
 [
 /nologo /subsystem:windows /incremental:yes /pdb:"Debug/LantCtrl.pdb" /debug /machine:I386 /out:"Debug/LantCtrl.exe" /pdbtype:sept 
 ".\Debug\BackWnd.obj"
@@ -17,14 +23,20 @@ Creating temporary file "C:\Users\cyk\AppData\Local\Temp\RSPDFA8.tmp" with conte
 ".\Debug\TextWnd.obj"
 ".\Debug\LantCtrl.res"
 ]
-Creating command line "link.exe @C:\Users\cyk\AppData\Local\Temp\RSPDFA8.tmp"
+Creating command line "link.exe @C:\Users\cyk\AppData\Local\Temp\RSP53DE.tmp"
 <h3>Output Window</h3>
+Compiling...
+LantCtrlDlg.cpp
+Command line warning D4028 : minimal rebuild failure, reverting to normal build
 Linking...
+Creating command line "bscmake.exe /nologo /o"Debug/LantCtrl.bsc"  ".\Debug\StdAfx.sbr" ".\Debug\BackWnd.sbr" ".\Debug\InfoDlg.sbr" ".\Debug\LantCtrl.sbr" ".\Debug\LantCtrlDlg.sbr" ".\Debug\TextWnd.sbr""
+Creating browse info file...
+<h3>Output Window</h3>
 
 
 
 <h3>Results</h3>
-LantCtrl.exe - 0 error(s), 0 warning(s)
+LantCtrl.exe - 0 error(s), 1 warning(s)
 </pre>
 </body>
 </html>

@@ -16,7 +16,7 @@ class CBackWnd : public CWnd
 public:
 	enum{IDC_TEXTWND=2000};
 	CTextWnd m_TextWnd;
-	CArray<LPTSTR,LPTSTR> m_arr;
+
 public:
 	BOOL InsertItem(int nItem, LPCTSTR szItem);
 public:
@@ -26,6 +26,9 @@ public:
 public:
 	void Register();
 	BOOL Create(DWORD dwStyle,const RECT& rect,CWnd* pParentWnd,UINT nID);
+	CString GetItemText(int nItem);
+	int GetItemCount();
+	BOOL DeleteAllItem();
 // Operations
 public:
 
@@ -36,27 +39,13 @@ public:
 
 // Implementation
 public:
-	void SetTextStartPos(int startPos);
-	void GetWndRect(CRect* rect);
-	void GetTextEndPos(int* endPos);
-	void GetTextStartPos(int* startPos);
-	void GetTextPos(int *startPos,int* endPos);
 
-	CString GetItemText(int nItem);
-	int GetItemCount();
-	BOOL DeleteAllItem();
 	virtual ~CBackWnd();
 
 	// Generated message map functions
 protected:
 	//{{AFX_MSG(CBackWnd)
 	afx_msg void OnPaint();
-	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
-	afx_msg void OnShowAdd();
-	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
-	afx_msg void OnTimer(UINT nIDEvent);
-	afx_msg void OnShowDel();
-	afx_msg void OnShowMod();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

@@ -2,7 +2,7 @@
 
 [General Info]
 Version=1
-LastClass=CBackWnd
+LastClass=CTextWnd
 LastTemplate=CDialog
 NewFileInclude1=#include "stdafx.h"
 NewFileInclude2=#include "lantctrl.h"
@@ -25,7 +25,7 @@ Type=0
 BaseClass=CWnd
 HeaderFile=BackWnd.h
 ImplementationFile=BackWnd.cpp
-LastObject=ID_SHOW_MOD
+LastObject=CBackWnd
 Filter=W
 VirtualFilter=WC
 
@@ -52,6 +52,9 @@ Type=0
 BaseClass=CWnd
 HeaderFile=TextWnd.h
 ImplementationFile=TextWnd.cpp
+Filter=W
+VirtualFilter=WC
+LastObject=ID_SHOW_ADD
 
 [DLG:IDD_INFODLG]
 Type=1

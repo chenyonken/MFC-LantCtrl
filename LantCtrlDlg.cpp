@@ -49,8 +49,8 @@ BOOL CLantCtrlDlg::OnInitDialog()
 	CRect rect;
 	GetClientRect(rect);
 	m_BackWnd.Create(WS_VISIBLE|WS_DLGFRAME|WS_CHILDWINDOW,CRect(0,rect.top+100,rect.right,60+100),this,IDC_BACKWND);
-	m_BackWnd.InsertItem(0,_T("ldlajal"));
-	m_BackWnd.InsertItem(1,_T("我爱中国"));
+	m_BackWnd.InsertItem(0,_T("<----------"));
+	m_BackWnd.InsertItem(1,_T("央视晚报(3月4日)"));
 	// Set the icon for this dialog.  The framework does this automatically
 	//  when the application's main window is not a dialog
 	SetIcon(m_hIcon, TRUE);			// Set big icon
